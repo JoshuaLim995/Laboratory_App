@@ -11,6 +11,20 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Auth::routes();
+
+Route::get('/', 'HomeController@index')->name('home');
+
+Route::resource('/inventory', 'InventoryController');
+
+Route::resource('/user', 'UserController');
+
+Route::resource('/loan', 'LoanController');
+
+Route::get('/loan/{loan}/approval/{token}', 'LoanController@approval')->name('loan.approval');
+
+Route::resource('/locker', 'LockerController');
