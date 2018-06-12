@@ -28,3 +28,7 @@ Route::resource('/loan', 'LoanController');
 Route::get('/loan/{loan}/approval/{token}', 'LoanController@approval')->name('loan.approval');
 
 Route::resource('/locker', 'LockerController');
+
+Route::get('/exit', function () {
+    return view('exit');
+})->name('exit');

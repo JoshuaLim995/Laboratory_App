@@ -39,78 +39,84 @@ use App\Inventory;
 				<div class="col-sm-1">
 					To
 				</div>
-				
+
 				<div class="col-sm-4">
 					{!! Form::date('date_to', null, [
 					'class' => 'form-control',
 					]) !!}
 				</div>
-				
-
 			</div>
 
-			<div class="form-group row">
-				<table id="myTable" class="table">
-					<thead>
-						<tr>
-							<th>Item</th>
-							<th>Quantity</th>
-						</tr>
-					</thead>
-					<tbody>
+			<table id="myTable" class="table">
+				<thead>
+					<tr>
+						<th style="width: 30%">Item</th>
+						<th style="width: 20%">Quantity</th>
+						<th style="width: 10%"></th>
+					</tr>
+				</thead>
+				<tbody>
 
 
-						<tr class="after-add-more">
-
-							<td id="item">{!! Form::select('inventory[]', Inventory::pluck('name', 'id'), null, [
-								'placeholder' => 'Select Item',
+					<tr class="after-add-more">
+						<td id="item">
+							<div class="col-sm-7">
+								{!! Form::select('inventory[]', Inventory::pluck('name', 'id'), null, [
+								'class' => 'form-control select2',
+								'placeholder' => 'Select item',
 								'multiple' => false,
-								]) !!}</td>
-								<td id="quantity">
-									{!! Form::number('quantity[]', null, [
-									'placeholder' => 'Quantity',
-									'min' => 0,
-									]) !!}
-								</td>
-								<td>
-									{!! Form::button('Add', [
-									'class' => 'btn btn-success add-more',
-									]) !!}
-								</td>
-
-							</tr>
-
-
-						</tbody>
-					</table>
-				</div>
+								]) !!}
+							</div>									
+						</td>
+						<td id="quantity">
+							{!! Form::number('quantity[]', null, [
+							'class' => 'form-control',
+							'placeholder' => 'Quantity',
+							'min' => 0,
+							]) !!}
+						</td>
+						<td>
+							{!! Form::button('Add', [
+							'class' => 'btn btn-success add-more',
+							]) !!}
+						</td>
+					</tr>
 
 
-				<br>
-				{!! Form::button('Submit', [
-				'type' => 'submit',
-				'class' => 'btn btn-primary',
-				]) 
-				!!}
+				</tbody>
+			</table>
 
-				<!-- Copy Fields -->
-				{{-- <div id="copy" class="invisible"> --}}
-				<div id="btn-remove" class="invisible">
-					{!! Form::button('Remove', [
-					'class' => 'btn btn-danger remove',
-					]) !!}
-				</div>
+			<br>
+			{!! Form::button('Submit', [
+			'type' => 'submit',
+			'class' => 'btn btn-primary',
+			]) 
+			!!}
 
-				{!! Form::close() !!}
+			<!-- Copy Fields -->
+
+			<div id="btn-remove" class="invisible">
+				{!! Form::button('Remove', [
+				'class' => 'btn btn-danger remove',
+				]) !!}
 			</div>
+
+			{!! Form::close() !!}
 		</div>
 	</div>
 </div>
 
+
+
 <script type="text/javascript">
+
 	$(document).ready(function() {
 
+		$('.select2').select2();
+
 		$(".add-more").click(function(){ 
+
+			$('.select2').select2('destroy');
 
 			var table = document.getElementById("myTable");
 			var row = table.insertRow(-1);
@@ -121,6 +127,8 @@ use App\Inventory;
 			row.insertCell(1).innerHTML = $("#quantity").html();
 			row.insertCell(2).innerHTML = $("#btn-remove").html();
 
+			$('.select2').select2();
+
 		});
 
 		$("tbody").on("click",".remove",function(){ 
@@ -128,5 +136,6 @@ use App\Inventory;
 		});
 
 	});
+
 </script>
 @endsection

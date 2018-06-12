@@ -11,4 +11,9 @@ class LoanToken extends Model
 	'token_approve',
 	'token_decline',
 	];
+
+	public function loan()
+	{
+		return $this->belongsTo(Loan::class);
+	}
 }

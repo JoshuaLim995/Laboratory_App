@@ -1,0 +1,223 @@
+<?php
+use App\Inventory;
+?>
+
+@extends('layouts.app')
+@section('content')
+<div class="container">
+	<h1>Loan</h1>
+
+
+	<div class="panel panel-default">
+
+		<div class="panel-body">
+			{!! Form::model(null, [
+			'route' => ['loan.store'],
+			'class' => 'form-horizontal',
+			]) !!}
+
+			<div class="form-group row">
+				{!! Form::label('purpose' ,'Purpose', [
+				'class' => 'control-label col-sm-2'
+				]) !!}
+				<div class="col-sm-9">
+					{!! Form::text('purpose', null, [
+					'class' => 'form-control',
+					]) !!}
+				</div>
+			</div>
+
+			<div class="form-group row">
+				{!! Form::label('period' ,'Loan period', [
+				'class' => 'control-label col-sm-2'
+				]) !!}
+				<div class="col-sm-4">
+					{!! Form::date('date_from', \Carbon\Carbon::now(), [
+					'class' => 'form-control',
+					]) !!}
+				</div>
+				<div class="col-sm-1">
+					To
+				</div>
+
+				<div class="col-sm-4">
+					{!! Form::date('date_to', null, [
+					'class' => 'form-control',
+					]) !!}
+				</div>
+
+
+			</div>
+
+			<div class="form-group row">
+				<table id="myTable" class="table">
+					<thead>
+						<tr>
+							<th>Item</th>
+							<th>Quantity</th>
+						</tr>
+					</thead>
+					<tbody>
+
+
+						<tr class="after-add-more">
+							<td id="item">{!! Form::select('inventory[]', Inventory::pluck('name', 'id'), null, [
+								'class' => 'form-control select2',
+								'placeholder' => 'Select item',
+								'multiple' => false,
+								]) !!}</td>
+								<td id="quantity">
+									{!! Form::number('quantity[]', null, [
+									'placeholder' => 'Quantity',
+									'min' => 0,
+									]) !!}
+								</td>
+								<td>
+									{!! Form::button('Add', [
+									'class' => 'btn btn-success add-more',
+									]) !!}
+								</td>
+							</tr>
+
+
+						</tbody>
+					</table>
+				</div>
+
+
+
+
+				<div id="loan_item" class="form-group row">
+					<div class="col-sm-4">
+						{!! Form::select('inventory[]', Inventory::pluck('name', 'id'), null, [
+						'class' => 'form-control select2',
+						'placeholder' => 'Select item',
+						'multiple' => false,
+						]) !!}
+					</div>
+					{!! Form::button('Add', [
+					'class' => 'btn btn-success add-more',
+					]) !!}
+				</div>
+
+
+
+
+<!-- 
+				<br>
+				{!! Form::button('Submit', [
+				'type' => 'submit',
+				'class' => 'btn btn-primary',
+				]) 
+				!!} -->
+
+				<!-- Copy Fields -->
+				{{-- <div id="copy" class="invisible"> --}}
+				<div id="btn-remove" class="">
+					{!! Form::button('Remove', [
+					'class' => 'btn btn-danger remove',
+					]) !!}
+				</div>
+
+				{!! Form::close() !!}
+			</div>
+		</div>
+
+
+	<!-- 	<div>
+			<button id="button" onclick="duplicate()">Click me</button>
+			<div id="duplicater"> 
+				<div id="loan_item" class="form-group row">
+					<div class="col-sm-4">
+						{!! Form::select('inventory[]', Inventory::pluck('name', 'id'), null, [
+						'class' => 'form-control select2',
+						'placeholder' => 'Select item',
+						'multiple' => false,
+						]) !!}
+					</div>
+					{!! Form::button('Add', [
+					'class' => 'btn btn-success add-more',
+					]) !!}
+				</div>
+			</div>
+		</div>
+	-->
+	<div id="content">
+		<div id="duplicater"> 
+			<select class="js-example-basic-multiple form-control" name="states[]" >
+				<option value="AL">Alabama</option>
+				...
+				<option value="WY">Wyoming</option>
+			</select>
+
+			<button id="button" onclick="duplicate()">Click me</button>
+		</div>
+	</div>
+	
+
+
+
+
+</div>
+</div>
+
+
+
+<script type="text/javascript">
+		$('.select2').select2();
+	$(document).ready(function() {
+
+
+
+		$(".add-more").click(function(){ 
+			// $('.select2').select2('destroy');
+			var table = document.getElementById("myTable");
+			var row = table.insertRow(-1);
+			row.setAttribute('id', 'copy');
+
+
+			row.insertCell(0).innerHTML = $("#item").html();
+			row.insertCell(1).innerHTML = $("#quantity").html();
+			row.insertCell(2).innerHTML = $("#btn-remove").html();
+
+			$('.select2').select2();
+
+		});
+
+		$("tbody").on("click",".remove",function(){ 
+			$(this).parents("#copy").remove();
+		});
+
+	});
+
+	// $('.select2').select2();
+
+</script>
+
+<script type="text/javascript">
+	
+</script>
+
+
+
+
+
+
+<script type="text/javascript">
+	$('.js-example-basic-multiple').select2();
+
+	var i = 0;
+	var original = document.getElementById('duplicater');
+
+	function duplicate() {
+		// $('.js-example-basic-multiple').select2('destroy');
+    var clone = original.cloneNode(true); // "deep" clone
+    clone.id = "duplicater" + ++i;
+    // or clone.id = ""; if the divs don't need an ID
+    original.parentNode.appendChild(clone);
+    $('.js-example-basic-multiple').select2('destroy');
+
+}
+</script>
+
+@endsection

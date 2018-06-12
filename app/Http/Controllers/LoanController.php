@@ -69,8 +69,10 @@ class LoanController extends Controller
 
         $loanToken = new LoanToken();
         $loanToken->loan_id = $loan->id;
-        $loanToken->token_approve = Hash::make($token_approve);
-        $loanToken->token_decline = Hash::make($token_decline);
+        // $loanToken->token_approve = Hash::make($token_approve);
+        // $loanToken->token_decline = Hash::make($token_decline);
+        $loanToken->token_approve = $token_approve;
+        $loanToken->token_decline = $token_decline;
         $loanToken->save();
 
         $approve_link = env('APP_URL') . 'loan/' . $loan->id . '/approval/' . $token_approve;
@@ -103,7 +105,9 @@ class LoanController extends Controller
      */
     public function show(Loan $loan)
     {
-        //
+        return view('loan.show', [
+            'loan' => $loan,
+            ]);
     }
 
     /**
@@ -142,18 +146,18 @@ class LoanController extends Controller
 
     public function approval($id, $token)
     {
-        if($loanToken = LoanToken::where('loan_id', $id)->first()){
-            $loan = Loan::find($id);
-
-            if(Hash::check($token, $loanToken->token_approve))
+        if($loan = Loan::find($id)){
+            $loanToken = $loan->loan_token;
+            if($token === $loanToken->token_approve)
             {
                 $loan->update(['status' => 'approved']);
-                return view('exit');
+                // return redirect()->route('exit');
+                return redirect()->route('loan.show', $id);
             }
-            else if(Hash::check($token, $loanToken->token_decline))
+            else if($token === $loanToken->token_decline)
             {
                 $loan->update(['status' => 'decline']);
-                return view('exit');
+                return redirect()->route('loan.show', $id);
             }
             else
             {
@@ -163,5 +167,7 @@ class LoanController extends Controller
         else {
             return 'Invalid loan_id';
         }
+
+        // return redirect()->route('loan.index');
     }
 }
