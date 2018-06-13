@@ -25,11 +25,15 @@ class InventoryController extends Controller
     {
         $inventories = Inventory::select([
             'id',
-            'inventories.name',
-            'inventories.quantity',
+            'name',
+            'quantity',
             ]);
-        // return DataTables::eloquent($inventories)->toJson();
-        return DataTables::eloquent(Inventory::query())->toJson();
+
+        return DataTables::eloquent($inventories)
+        ->addColumn('action', function ($inventories) {
+            return '<a href="'. route('inventory.show', $inventories->id) .'" class="btn btn-primary">View</a>';
+        })
+        ->toJson();
     }
 
     /**
