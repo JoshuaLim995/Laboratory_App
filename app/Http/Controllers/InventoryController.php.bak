@@ -7,8 +7,6 @@ use Storage;
 use App\Inventory;
 use Illuminate\Http\Request;
 
-use DataTables;
-
 class InventoryController extends Controller
 {
     /**
@@ -18,18 +16,10 @@ class InventoryController extends Controller
      */
     public function index()
     {
-        return view('inventory.index');
-    }
-
-    public function get_datatable()
-    {
-        $inventories = Inventory::select([
-            'id',
-            'inventories.name',
-            'inventories.quantity',
+        $inventories = Inventory::paginate(10);
+        return view('inventory.index', [
+            'inventories' => $inventories,
             ]);
-        // return DataTables::eloquent($inventories)->toJson();
-        return DataTables::eloquent(Inventory::query())->toJson();
     }
 
     /**

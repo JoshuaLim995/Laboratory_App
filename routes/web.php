@@ -19,7 +19,7 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 
-Route::resource('/inventory', 'InventoryController');
+// Route::resource('/inventory', 'InventoryController');
 
 Route::resource('/user', 'UserController');
 
@@ -32,3 +32,14 @@ Route::resource('/locker', 'LockerController');
 Route::get('/exit', function () {
     return view('exit');
 })->name('exit');
+
+
+
+
+
+
+
+
+
+Route::get('/inventory', 'InventoryController@index')->name('inventory.index');
+Route::get('/inventory/get_datatable', 'InventoryController@get_datatable');

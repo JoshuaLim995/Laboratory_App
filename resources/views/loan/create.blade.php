@@ -2,8 +2,11 @@
 use App\Inventory;
 ?>
 
+
+
 @extends('layouts.app')
 @section('content')
+
 <div class="container">
 	<h1>Loan</h1>
 
@@ -106,7 +109,9 @@ use App\Inventory;
 	</div>
 </div>
 
-
+<!-- Select2 -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 
 <script type="text/javascript">
 
@@ -115,7 +120,6 @@ use App\Inventory;
 		$('.select2').select2();
 
 		$(".add-more").click(function(){ 
-
 			$('.select2').select2('destroy');
 
 			var table = document.getElementById("myTable");

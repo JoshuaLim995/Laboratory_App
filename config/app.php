@@ -164,7 +164,8 @@ return [
 
         Snowfire\Beautymail\BeautymailServiceProvider::class,
 
-
+//https://github.com/yajra/laravel-datatables
+        Yajra\DataTables\DataTablesServiceProvider::class,
 
         ],
 
@@ -219,6 +220,9 @@ return [
     'Html' => Collective\Html\HtmlFacade::class,
 
     'Keygen' => Keygen\Keygen::class,
+
+    //https://github.com/yajra/laravel-datatables
+    'DataTables' => Yajra\DataTables\Facades\DataTables::class,
     ],
 
     ];
