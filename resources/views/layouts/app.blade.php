@@ -12,11 +12,32 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-
-
+    {{-- css --}}
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
+
+    {{-- javascript --}}
     <script src="{{ asset('js/app.js') }}"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+    <!-- dataTables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Select2 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+
+    <!-- FullCalendar -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.0/moment-with-locales.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.0.1/fullcalendar.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://fullcalendar.io/js/fullcalendar-3.0.1/fullcalendar.min.css">
+
+    <!-- tempusdominus -->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
 
 </head>
 
@@ -35,7 +56,7 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav mr-auto">
                     <li><a class="nav-link" href="{{ route('inventory.index') }}">Inventory</a></li>
-                    <li><a class="nav-link" href="{{ route('user.index') }}">User</a></li>
+                    {{-- <li><a class="nav-link" href="{{ route('user.index') }}">User</a></li> --}}
                     <li><a class="nav-link" href="{{ route('loan.index') }}">Loan</a></li>
                     <li><a class="nav-link" href="{{ route('locker.index') }}">Locker</a></li>
                 </ul>

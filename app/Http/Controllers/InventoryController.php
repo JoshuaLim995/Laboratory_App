@@ -18,18 +18,22 @@ class InventoryController extends Controller
      */
     public function index()
     {
+        // return Inventory::find(1)->category->name;
         return view('inventory.index');
     }
 
     public function get_datatable()
-    {
+    {        
         $inventories = Inventory::select([
             'id',
             'name',
-            'quantity',
+            'category_id',
             ]);
 
         return DataTables::eloquent($inventories)
+        ->addColumn('category', function ($inventories) {
+            return $inventories->category->name;
+        })
         ->addColumn('action', function ($inventories) {
             return '<a href="'. route('inventory.show', $inventories->id) .'" class="btn btn-primary">View</a>';
         })
@@ -57,7 +61,7 @@ class InventoryController extends Controller
         $inventory = new Inventory();
         $inventory->fill($request->all());
 
-        $inventory->photo = $request->file('photo')->storeAs('/', $inventory->name.'.jpg');
+        // $inventory->photo = $request->file('photo')->storeAs('/', $inventory->name.'.jpg');
         $inventory->save();
         return redirect()->route('inventory.index');
     }

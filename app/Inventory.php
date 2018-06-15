@@ -9,8 +9,13 @@ class Inventory extends Model
     protected $fillable = [
     'name', 
     'model',
+    'category_id',
     'description',
-    'quantity',
     'photo',
     ];
+
+    public function category()
+    {
+    	return $this->belongsTo(Category::class);
+    }
 }

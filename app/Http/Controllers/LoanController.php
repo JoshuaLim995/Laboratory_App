@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Auth;
 use Keygen;
 use Hash;
+use DataTables;
+use App\User;
 use App\Loan;
 use App\LoanToken;
 use App\LoanItem;
@@ -20,10 +22,27 @@ class LoanController extends Controller
      */
     public function index()
     {
-        $loans = Loan::paginate(10);
-        return view('loan.index', [
-            'loans' => $loans,
+        return view('loan.index');
+    }
+
+    public function get_datatable()
+    {
+        $loan = Loan::select([
+            'id',
+            'purpose',
+            'user_id',
+            'created_at',
+            'status',
             ]);
+
+        return  DataTables::of($loan)
+        ->addColumn('user_name', function ($loan) {
+            return $loan->user->name;
+        })
+        ->addColumn('action', function ($loan) {
+            return '<a href="'. route('loan.show', $loan->id) .'" class="btn btn-primary">View</a>';
+        })
+        ->toJson();
     }
 
     /**
@@ -85,7 +104,7 @@ class LoanController extends Controller
             'decline_link' => $decline_link,
             ], function($message) 
             {
-                $email = 'HOD@UTAR.my';
+                $email = User::find(2)->email;
                 // $email = 'limshiawjong@gmail.com';
                 
                 $message
@@ -146,28 +165,33 @@ class LoanController extends Controller
 
     public function approval($id, $token)
     {
-        if($loan = Loan::find($id)){
-            $loanToken = $loan->loan_token;
-            if($token === $loanToken->token_approve)
-            {
-                $loan->update(['status' => 'approved']);
+        if(Auth::id()===2){
+            if($loan = Loan::find($id)){
+                $loanToken = $loan->loan_token;
+                if($token === $loanToken->token_approve)
+                {
+                    $loan->update(['status' => 'approved']);
                 // return redirect()->route('exit');
-                return redirect()->route('loan.show', $id);
+                    return redirect()->route('loan.show', $id);
+                }
+                else if($token === $loanToken->token_decline)
+                {
+                    $loan->update(['status' => 'decline']);
+                    return redirect()->route('loan.show', $id);
+                }
+                else
+                {
+                    return 'Invalid Token';
+                }
             }
-            else if($token === $loanToken->token_decline)
-            {
-                $loan->update(['status' => 'decline']);
-                return redirect()->route('loan.show', $id);
-            }
-            else
-            {
-                return 'Invalid Token';
+            else {
+                return 'Invalid loan_id';
             }
         }
-        else {
-            return 'Invalid loan_id';
+        else 
+        {
+            echo 'Not HOD';
+            // return redirect()->route('logout');
         }
-
-        // return redirect()->route('loan.index');
     }
 }

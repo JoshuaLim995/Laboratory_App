@@ -164,9 +164,11 @@ return [
 
         Snowfire\Beautymail\BeautymailServiceProvider::class,
 
-//https://github.com/yajra/laravel-datatables
+        //https://github.com/yajra/laravel-datatables
         Yajra\DataTables\DataTablesServiceProvider::class,
 
+        //https://github.com/maddhatter/laravel-fullcalendar
+        MaddHatter\LaravelFullcalendar\ServiceProvider::class,
         ],
 
     /*
@@ -223,6 +225,9 @@ return [
 
     //https://github.com/yajra/laravel-datatables
     'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+
+    //https://github.com/maddhatter/laravel-fullcalendar
+    'Calendar' => MaddHatter\LaravelFullcalendar\Facades\Calendar::class,
     ],
 
     ];

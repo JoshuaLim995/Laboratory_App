@@ -1,0 +1,54 @@
+<?php
+use App\Inventory;
+?>
+
+@extends('layouts.app')
+@section('content')
+
+<div class="container">
+	<h1>Make Reservation</h1>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			{!! Form::model(null, [
+			'route' => ['reservation.store'],
+			'class' => 'form-horizontal',
+			]) !!}
+
+			<div class="form-group row">
+				{!! Form::label('start_at' ,'Start at', [
+				'class' => 'control-label col-sm-2'
+				]) !!}
+				<div class="col-sm-9">
+					{!! Form::date('starts_at', null, [
+					'class' => 'form-control',
+					]) !!}
+				</div>
+			</div>
+
+			<div class="form-group row">
+				{!! Form::label('end_at' ,'End at', [
+				'class' => 'control-label col-sm-2'
+				]) !!}
+				<div class="col-sm-9">
+					{!! Form::date('ends_at', null, [
+					'class' => 'form-control',
+					]) !!}
+				</div>
+			</div>
+
+			<br>
+			{!! Form::button('Submit', [
+			'type' => 'submit',
+			'class' => 'btn btn-primary',
+			]) 
+			!!}
+
+			{!! Form::close() !!}
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+{!! $calendar_details->script() !!}
+</script>
+@endsection

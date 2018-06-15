@@ -28,6 +28,11 @@ class CreateUsersTable extends Migration
             'email' => '123@123.com',
             'password' => '$2y$10$W//dtyXI/J5xv0cN34.j0OqyY8XWHqEHrWJSNx4HVOkh109qEwEee',
             ],
+            [
+            'name' => 'HOD',
+            'email' => 'HOD@UTAR.my',
+            'password' => '$2y$10$W//dtyXI/J5xv0cN34.j0OqyY8XWHqEHrWJSNx4HVOkh109qEwEee',
+            ],
             ]);
     }
 

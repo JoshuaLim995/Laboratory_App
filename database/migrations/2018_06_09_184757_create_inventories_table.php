@@ -18,8 +18,8 @@ class CreateInventoriesTable extends Migration
             $table->string('name');
             $table->string('model');
             $table->text('description');
-            $table->integer('quantity');
             $table->string('photo')->nullable();
+            $table->integer('category_id');
             $table->timestamps();
         });
 
@@ -28,13 +28,13 @@ class CreateInventoriesTable extends Migration
             'name' => 'Beaker',
             'model' => '100',
             'description' => 'beaker-beaker',
-            'quantity' => '10',
+            'category_id' => '1',
             ],
             [
             'name' => 'Cup',
             'model' => '123',
             'description' => 'cup-cup',
-            'quantity' => '5',
+            'category_id' => '1',
             ],
             ]);
     }

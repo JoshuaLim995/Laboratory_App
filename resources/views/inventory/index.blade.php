@@ -7,6 +7,8 @@
     <div class="control-group input-group">
         <a href="{{ route('inventory.create') }}"><button class="btn btn-default">Create Inventory
         </button></a>
+        <a href="{{ route('category.create') }}"><button class="btn btn-default">Create Category
+        </button></a>
     </div>
     <br>
 
@@ -15,7 +17,7 @@
        <tr>
         <th></th>
         <th>Name</th>
-        <th>Quantity</th>
+        <th>Category</th>
         <th>Action</th>
 
     </tr>
@@ -31,7 +33,7 @@
            columns : [
            {data: null},
            {data: 'name', name: 'name'},
-           {data: 'quantity', name: 'quantity'},
+           {data: 'category', name: 'category'},
            {data: 'action', name: 'action', orderable: false, searchable: false}
            ],
            "columnDefs": [ {
@@ -49,10 +51,5 @@
         } ).draw();
     } );
 </script>
-
-{{-- Data Table js and css --}}
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
-<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
 
 @endsection

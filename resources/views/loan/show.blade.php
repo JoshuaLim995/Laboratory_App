@@ -44,11 +44,5 @@
 			array($loan->id, $loan->loan_token->token_decline), 
 			array('class'=>'btn btn-danger'))!!}
 	</div>
-
-
-
-
-
-
 </div>
 @endsection

@@ -2,17 +2,12 @@
 use App\Inventory;
 ?>
 
-
-
 @extends('layouts.app')
 @section('content')
 
 <div class="container">
 	<h1>Loan</h1>
-
-
 	<div class="panel panel-default">
-
 		<div class="panel-body">
 			{!! Form::model(null, [
 			'route' => ['loan.store'],
@@ -59,7 +54,6 @@ use App\Inventory;
 					</tr>
 				</thead>
 				<tbody>
-
 
 					<tr class="after-add-more">
 						<td id="item">
@@ -109,15 +103,15 @@ use App\Inventory;
 	</div>
 </div>
 
-<!-- Select2 -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
-
 <script type="text/javascript">
 
 	$(document).ready(function() {
 
-		$('.select2').select2();
+		$('.select2').select2({
+			id: '-1',
+		allowClear: true,
+		placeholder: "Select item",
+		});
 
 		$(".add-more").click(function(){ 
 			$('.select2').select2('destroy');

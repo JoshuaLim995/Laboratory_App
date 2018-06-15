@@ -21,9 +21,15 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::resource('/inventory', 'InventoryController');
 
+Route::resource('/category', 'CategoryController');
+
 Route::resource('/user', 'UserController');
 
 Route::resource('/loan', 'LoanController');
+
+Route::resource('/reservation', 'ReservationController');
+
+
 
 Route::get('/loan/{loan}/approval/{token}', 'LoanController@approval')->name('loan.approval');
 
@@ -35,3 +41,5 @@ Route::get('/exit', function () {
 
 
 Route::get('/get_inventory_datatable', 'InventoryController@get_datatable')->name('inventory.get_datatable');
+
+Route::get('/get_loan_datatable', 'LoanController@get_datatable')->name('loan.get_datatable');
