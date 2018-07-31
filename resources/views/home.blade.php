@@ -1,23 +1,28 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    You are logged in!
-                </div>
-            </div>
-        </div>
-    </div>
+	@if(Auth::user()->isUser())
+	@if(Auth::user()->isStudent())
+	@include('student_home')
+	@else
+	<div class="card mb-4">
+		<div class="card-header">Welcome</div>
+		<div class="card-body">
+			Welcome to Laboratory Management System
+		</div>
+	</div>
+	@endif
+	@else
+	<div class="card mb-4">
+		<div class="card-header">Welcome</div>
+		<div class="card-body">
+			Please wait for the varification from admin
+		</div>
+	</div>
+	@endif
+	
 </div>
 @endsection

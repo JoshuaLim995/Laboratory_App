@@ -1,0 +1,147 @@
+<?php
+use App\Reservation;
+use Carbon\Carbon;
+?>
+@extends('layouts.app')
+
+@section('content')
+{{-- <style type="text/css">
+	.borderless table {
+    border-top-style: none;
+    border-left-style: none;
+    border-right-style: none;
+    border-bottom-style: none;
+}
+</style> --}}
+
+<div class="container">
+
+
+	<div class="card">
+		<div class="card-header">Dashboard</div>
+
+		<div class="card-body">
+			You are logged in!
+		</div>
+	</div>
+
+	<br>
+	<br>
+
+	<div class="card">
+		<div class="card-header">My Lab Reservations</div>
+
+		<div class="card-body">
+			@if(count($reservations) > 0)
+			<table class="table">
+				<thead>
+					<tr>
+						<th>No</th>
+						<th>Purpose</th>
+						<th>Lab</th>
+						<th>Date</th>
+						<th>Time</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach($reservations as $i => $reservation)
+					<tr>
+						<td>{{ $i + 1 }}</td>
+						<td>{{ $reservation->purpose }}</td>
+						<td>{{ Reservation::$room_no[$reservation->room_no] }}</td>
+						<td>{{ Carbon::parse($reservation->starts_at)->format('D, M d, Y') }}</td>
+						<td>
+							{{ Carbon::parse($reservation->starts_at)->format('h:i A ') }}
+							-
+							{{ Carbon::parse($reservation->ends_at)->format('h:i A ') }}
+						</td>
+					</tr>
+					@endforeach				
+				</tbody>				
+			</table>
+			@else
+			You have no reservations
+			@endif
+		</div>
+	</div>
+	<br>
+	<br>
+	<div class="card">
+		<div class="card-header">My Locker</div>
+
+		<div class="card-body">	
+
+			{{ $locker }}
+		</div>
+	</div>
+
+	<div class="card">
+		<div class="card-header">My Loan</div>
+		<div class="card-body">
+			<div class="col-sm-5">
+				<table class="table">
+					<tr>
+						<th>Pending</th>
+						<td>{{ count($pending_loans) }}</td>
+					</tr>
+					<tr>
+						<th>Approved</th>
+						<td>{{ count($approved_loans) }}</td>
+					</tr>
+				</table>
+			</div>
+			
+{{-- 			@if(count($approved_loans) > 0)
+			<table class='table'>
+				<thead>
+					<tr>
+						<th>No</th>
+						<th>Purpose</th>
+						<th>From</th>
+						<th>To</th>
+						<th>Items</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach($approved_loans as $i => $approved_loan)
+					<tr>
+						<td>{{ $i + 1 }}</td>
+						<td>{{ $approved_loan->purpose }}</td>
+						<td>{{ $approved_loan->date_from }}</td>
+						<td>{{ $approved_loan->date_to }}</td>
+						<td>
+							<table class='table'>
+								@foreach($approved_loan->loan_items as $i => $loan_item)
+								<tr>
+									<td>{{ $i + 1 }}</td>
+									<td>{{ $loan_item->inventory->name }}</td>
+									<td>{{ $loan_item->approved_quantity }}</td>
+								</tr>
+								@endforeach
+							</table>							
+						</td>						
+					</tr>					
+					@endforeach
+				</tbody>
+			</table>
+			@endif --}}
+
+			<p>Approved Loan</p>
+
+			<p>active loan / current loan</p>
+
+			<p>overdue loan</p>
+		</div>
+	</div>
+
+
+	<div class="card">
+		<div class="card-header">Recent Loan</div>
+
+		<div class="card-body">
+			<p>Loan ITem</p>
+		</div>
+	</div>
+	
+</div>
+@endsection

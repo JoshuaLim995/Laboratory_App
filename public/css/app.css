@@ -10421,6 +10421,19 @@ body {
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+body > .container {
+  padding: 60px 15px 0;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+code {
+  font-size: 80%;
+}
+
 .hide {
   display: none !important;
 }
@@ -10433,3 +10446,9 @@ body {
   visibility: hidden;
 }
 
+  .borderless table {
+    border-top-style: none;
+    border-left-style: none;
+    border-right-style: none;
+    border-bottom-style: none;
+  }

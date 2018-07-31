@@ -17,8 +17,10 @@ class CreateReservationsTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->integer('user_id');
-            $table->date('starts_at');
-            $table->date('ends_at');
+            $table->string('purpose');
+            $table->string('room_no', 3);
+            $table->datetime('starts_at');
+            $table->datetime('ends_at');
         });
     }
 

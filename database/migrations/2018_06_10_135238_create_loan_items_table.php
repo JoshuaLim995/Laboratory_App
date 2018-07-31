@@ -17,7 +17,10 @@ class CreateLoanItemsTable extends Migration
             $table->increments('id');
             $table->integer('loan_id');
             $table->integer('inventory_id');
-            $table->integer('quantity');
+            $table->integer('requested_quantity');
+            $table->integer('approved_quantity')->nullable();
+            $table->string('remark')->nullable();
+            $table->string('is_returned', 1);
             $table->timestamps();
         });
     }

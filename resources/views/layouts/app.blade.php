@@ -15,15 +15,26 @@
     {{-- css --}}
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
+    {{-- action button spacing --}}
+    <link href="{{ asset('css/action_button.css') }}" rel="stylesheet">
+
+    {{-- nav hover menu --}}
+    <link href="{{ asset('css/nav_hover.css') }}" rel="stylesheet">
+
+    {{-- custom div container --}}
+    <link href="{{ asset('css/custom_div.css') }}" rel="stylesheet">
 
     {{-- javascript --}}
     <script src="{{ asset('js/app.js') }}"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 
     <!-- dataTables -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
+{{--     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
     <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script> --}}
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/b-1.5.2/b-colvis-1.5.1/fc-3.2.5/r-2.2.2/sl-1.2.6/datatables.min.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/b-1.5.2/b-colvis-1.5.1/fc-3.2.5/r-2.2.2/sl-1.2.6/datatables.min.js"></script>
 
     <!-- Select2 -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
@@ -46,7 +57,8 @@
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Laravel') }}
+                {{-- {{ config('app.name', 'Laravel') }} --}}
+                Home
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -55,10 +67,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav mr-auto">
-                    <li><a class="nav-link" href="{{ route('inventory.index') }}">Inventory</a></li>
-                    {{-- <li><a class="nav-link" href="{{ route('user.index') }}">User</a></li> --}}
-                    <li><a class="nav-link" href="{{ route('loan.index') }}">Loan</a></li>
-                    <li><a class="nav-link" href="{{ route('locker.index') }}">Locker</a></li>
+                    @include('layouts.nav')
                 </ul>
                 <!-- Right Side Of Navbar -->
                 <ul class="navbar-nav ml-auto">
@@ -73,6 +82,7 @@
                         </a>
 
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('profile.index') }}">Profile</a>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                             onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();">
@@ -91,7 +101,18 @@
 </nav>
 
 <main role="main">
+    @if(\Session::has('warning'))
+    <div class="alert alert-danger" align="center">
+        {{\Session::pull('warning')}}
+    </div>
+    @elseif(\Session::has('success'))
+    <div class="alert alert-success" align="center">
+        {{\Session::pull('success')}}
+    </div>
+    @endif
+
     @yield('content')
+
 </main>
 
 <footer class="container">

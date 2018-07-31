@@ -4,17 +4,27 @@ use App\Inventory;
 
 @extends('layouts.app')
 @section('content')
+
 <div class="container">
 	<h1>Loan</h1>
-
-
 	<div class="panel panel-default">
-
 		<div class="panel-body">
 			{!! Form::model(null, [
 			'route' => ['loan.store'],
 			'class' => 'form-horizontal',
 			]) !!}
+
+			<div class="form-group row">
+				@if (Session::has('success'))
+				<div class="alert alert-success">
+					{{ Session::get('success') }}
+				</div>
+				@elseif(Session::has('error'))
+				<div class="alert alert-danger">
+					{{ Session::get('error') }}
+				</div>
+				@endif
+			</div>
 
 			<div class="form-group row">
 				{!! Form::label('purpose' ,'Purpose', [
@@ -23,6 +33,7 @@ use App\Inventory;
 				<div class="col-sm-9">
 					{!! Form::text('purpose', null, [
 					'class' => 'form-control',
+					'required',
 					]) !!}
 				</div>
 			</div>
@@ -32,145 +43,100 @@ use App\Inventory;
 				'class' => 'control-label col-sm-2'
 				]) !!}
 				<div class="col-sm-4">
-					{!! Form::date('date_from', \Carbon\Carbon::now(), [
-					'class' => 'form-control',
-					]) !!}
+					<div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+						<input name='date_from' type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" required/>
+						<div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+							<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+						</div>
+					</div>
 				</div>
 				<div class="col-sm-1">
 					To
 				</div>
 
 				<div class="col-sm-4">
-					{!! Form::date('date_to', null, [
-					'class' => 'form-control',
-					]) !!}
+					<div class="input-group date" id="datetimepicker2" data-target-input="nearest">
+						<input name='date_to' type="text" class="form-control datetimepicker-input" data-target="#datetimepicker2" required/>
+						<div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
+							<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+						</div>
+					</div>
 				</div>
-
-
 			</div>
 
-			<div class="form-group row">
-				<table id="myTable" class="table">
-					<thead>
-						<tr>
-							<th>Item</th>
-							<th>Quantity</th>
-						</tr>
-					</thead>
-					<tbody>
+			<table id="myTable" class="table">
+				<thead>
+					<tr>
+						<th style="width: 30%">Item</th>
+						<th style="width: 20%">Quantity</th>
+						<th style="width: 10%"></th>
+					</tr>
+				</thead>
+				<tbody>
 
-
-						<tr class="after-add-more">
-							<td id="item">{!! Form::select('inventory[]', Inventory::pluck('name', 'id'), null, [
+					<tr class="after-add-more">
+						<td id="item">
+							<div class="col-sm-7">
+								{!! Form::select('inventory[]', Inventory::pluck('name', 'id'), null, [
 								'class' => 'form-control select2',
 								'placeholder' => 'Select item',
 								'multiple' => false,
-								]) !!}</td>
-								<td id="quantity">
-									{!! Form::number('quantity[]', null, [
-									'placeholder' => 'Quantity',
-									'min' => 0,
-									]) !!}
-								</td>
-								<td>
-									{!! Form::button('Add', [
-									'class' => 'btn btn-success add-more',
-									]) !!}
-								</td>
-							</tr>
+								'required',
+								]) !!}
+							</div>
+						</td>
+						<td id="quantity">
+							{!! Form::number('quantity[]', '', [
+							'class' => 'form-control',
+							'placeholder' => 'Quantity',
+							'min' => 0,
+							'required',
+							]) !!}
+						</td>
+						<td>
+							{!! Form::button('Add', [
+							'class' => 'btn btn-success add-more',
+							]) !!}
+						</td>
+					</tr>
 
 
-						</tbody>
-					</table>
-				</div>
+				</tbody>
+			</table>
 
+			<br>
+			{!! Form::button('Submit', [
+			'type' => 'submit',
+			'class' => 'btn btn-primary',
+			]) 
+			!!}
 
+			<!-- Copy Fields -->
 
-
-				<div id="loan_item" class="form-group row">
-					<div class="col-sm-4">
-						{!! Form::select('inventory[]', Inventory::pluck('name', 'id'), null, [
-						'class' => 'form-control select2',
-						'placeholder' => 'Select item',
-						'multiple' => false,
-						]) !!}
-					</div>
-					{!! Form::button('Add', [
-					'class' => 'btn btn-success add-more',
-					]) !!}
-				</div>
-
-
-
-
-<!-- 
-				<br>
-				{!! Form::button('Submit', [
-				'type' => 'submit',
-				'class' => 'btn btn-primary',
-				]) 
-				!!} -->
-
-				<!-- Copy Fields -->
-				{{-- <div id="copy" class="invisible"> --}}
-				<div id="btn-remove" class="">
-					{!! Form::button('Remove', [
-					'class' => 'btn btn-danger remove',
-					]) !!}
-				</div>
-
-				{!! Form::close() !!}
+			<div id="btn-remove" class="invisible">
+				{!! Form::button('Remove', [
+				'class' => 'btn btn-danger remove',
+				]) !!}
 			</div>
-		</div>
 
-
-	<!-- 	<div>
-			<button id="button" onclick="duplicate()">Click me</button>
-			<div id="duplicater"> 
-				<div id="loan_item" class="form-group row">
-					<div class="col-sm-4">
-						{!! Form::select('inventory[]', Inventory::pluck('name', 'id'), null, [
-						'class' => 'form-control select2',
-						'placeholder' => 'Select item',
-						'multiple' => false,
-						]) !!}
-					</div>
-					{!! Form::button('Add', [
-					'class' => 'btn btn-success add-more',
-					]) !!}
-				</div>
-			</div>
-		</div>
-	-->
-	<div id="content">
-		<div id="duplicater"> 
-			<select class="js-example-basic-multiple form-control" name="states[]" >
-				<option value="AL">Alabama</option>
-				...
-				<option value="WY">Wyoming</option>
-			</select>
-
-			<button id="button" onclick="duplicate()">Click me</button>
+			{!! Form::close() !!}
 		</div>
 	</div>
-	
-
-
-
-
 </div>
-</div>
-
-
 
 <script type="text/javascript">
-		$('.select2').select2();
+
 	$(document).ready(function() {
 
-
+		$('.select2').select2({
+			id: '-1',
+			allowClear: true,
+			placeholder: "Select item",
+		});
 
 		$(".add-more").click(function(){ 
-			// $('.select2').select2('destroy');
+			$('.select2').select2('destroy');
+
 			var table = document.getElementById("myTable");
 			var row = table.insertRow(-1);
 			row.setAttribute('id', 'copy');
@@ -189,35 +155,26 @@ use App\Inventory;
 		});
 
 	});
-
-	// $('.select2').select2();
-
 </script>
-
 <script type="text/javascript">
-	
-</script>
-
-
-
-
-
-
-<script type="text/javascript">
-	$('.js-example-basic-multiple').select2();
-
-	var i = 0;
-	var original = document.getElementById('duplicater');
-
-	function duplicate() {
-		// $('.js-example-basic-multiple').select2('destroy');
-    var clone = original.cloneNode(true); // "deep" clone
-    clone.id = "duplicater" + ++i;
-    // or clone.id = ""; if the divs don't need an ID
-    original.parentNode.appendChild(clone);
-    $('.js-example-basic-multiple').select2('destroy');
-
-}
+	$(function () {
+		$('#datetimepicker1').datetimepicker({
+			format: 'L',
+			minDate: 'moment',
+			useCurrent: false
+		});
+		$('#datetimepicker2').datetimepicker({
+			format: 'L',
+			useCurrent: false,
+			minDate: 'moment',
+		});
+		$("#datetimepicker1").on("change.datetimepicker", function (e) {
+			$('#datetimepicker2').datetimepicker('minDate', e.date);
+		});
+		$("#datetimepicker2").on("change.datetimepicker", function (e) {
+			$('#datetimepicker1').datetimepicker('maxDate', e.date);
+		});
+	});
 </script>
 
 @endsection

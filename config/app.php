@@ -169,6 +169,9 @@ return [
 
         //https://github.com/maddhatter/laravel-fullcalendar
         MaddHatter\LaravelFullcalendar\ServiceProvider::class,
+
+        // http://image.intervention.io/
+        Intervention\Image\ImageServiceProvider::class
         ],
 
     /*
@@ -228,6 +231,9 @@ return [
 
     //https://github.com/maddhatter/laravel-fullcalendar
     'Calendar' => MaddHatter\LaravelFullcalendar\Facades\Calendar::class,
+
+    // http://image.intervention.io/
+    'Image' => Intervention\Image\Facades\Image::class
     ],
 
     ];

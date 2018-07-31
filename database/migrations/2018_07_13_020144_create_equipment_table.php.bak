@@ -1,0 +1,53 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateEquipmentTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('equipment', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('inventory_id');
+            $table->string('name1')->nullable();
+            $table->string('name2')->nullable();
+            $table->string('code')->nullable();
+            $table->string('model')->nullable();
+            $table->string('brand')->nullable();
+            $table->string('seri_no')->nullable();
+            $table->string('ass_code')->nullable();
+            $table->string('cost')->nullable();
+            $table->string('pr_no')->nullable();
+            $table->string('po')->nullable();
+            $table->string('inv_no')->nullable();
+            $table->string('do')->nullable();
+            $table->string('do_date')->nullable();
+            $table->string('supp_cont')->nullable();
+            $table->string('initiator')->nullable();
+            $table->string('purpose')->nullable();
+            $table->string('sub_code')->nullable();
+            $table->string('cat')->nullable();
+            $table->string('el')->nullable();
+            $table->string('rpmc')->nullable();
+            $table->text('remark')->nullable();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('equipment');
+    }
+}

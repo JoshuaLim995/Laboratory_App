@@ -21,10 +21,19 @@ class CreateCategoriesTable extends Migration
 
         DB::table('categories')->insert([
             [
-            'name' => 'Laboratory glassware‎',        
+            'name' => 'Laboratory glassware‎/Tools',
             ],
             [
             'name' => 'Chemical',
+            ],
+            [
+            'name' => 'Equipment',
+            ],
+            [
+            'name' => 'Laboratory Consumable',
+            ],
+            [
+            'name' => 'ICT Consumable/Hardware',
             ],
             ]);
     }

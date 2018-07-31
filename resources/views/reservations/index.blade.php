@@ -2,25 +2,11 @@
 @section('content')
 <div class="container">
 
+	@if(Auth::user()->isStaff())
+	@include('reservations.index_admin')
+	@elseif(Auth::user()->isStudent())
+	@include('reservations.index_student')
 
-
-
-
-
-
-	<div class="control-group input-group">
-		<a href="{{ route('reservation.create') }}"><button class="btn btn-default">Make reservation
-		</button></a>
-	</div>
-
-	<div class="panel panel-primary">
-		{!! $calendar_details->calendar()  !!}
-		{!! $calendar_details->script() !!}
-	</div>
+	@endif
 </div>
-
-
-<script type="text/javascript">
-
-</script>
 @endsection

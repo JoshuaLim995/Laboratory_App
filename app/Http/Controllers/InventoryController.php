@@ -6,38 +6,62 @@ namespace App\Http\Controllers;
 use Storage;
 use App\Inventory;
 use Illuminate\Http\Request;
-
+use Image;
 use DataTables;
+use Validator;
+use Session;
+use Auth;
 
 class InventoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('staff');
+        $this->middleware('admin', ['only' => ['create', 'store', 'edit', 'update', 'delete']]);
+    }
+
     public function index()
     {
-        // return Inventory::find(1)->category->name;
         return view('inventory.index');
     }
 
     public function get_datatable()
-    {        
+    {
         $inventories = Inventory::select([
             'id',
             'name',
-            'category_id',
+            'category',
             ]);
 
         return DataTables::eloquent($inventories)
-        ->addColumn('category', function ($inventories) {
-            return $inventories->category->name;
+        ->addColumn('category', function ($inventory) {
+                return $inventory->getCategory();
         })
-        ->addColumn('action', function ($inventories) {
-            return '<a href="'. route('inventory.show', $inventories->id) .'" class="btn btn-primary">View</a>';
+        ->addColumn('action', function ($inventory) {
+            return $this->getActionButtons($inventory);            
         })
         ->toJson();
+    }
+
+    public function getActionButtons($inventory)
+    {
+        if(Auth::user()->isAdmin() || Auth::user()->isdlmsa())
+        {
+            return 
+            '<div class="action">' .
+            '<a href="'. route('inventory.show', $inventory) .'" class="btn btn-info">View</a>' . 
+            '<a href="'. route('inventory.edit', $inventory) .'" class="btn btn-success">Edit</a>' .
+            '<a href="'. route('inventory.delete', $inventory) .'" class="btn btn-danger"' . ' onclick="if(!confirm(' . "'Are you sure delete this record?'". ')){return false;};"' . '">Delete</a>' .
+            '</div>';
+        }
+        else
+        {
+            return 
+            '<div class="action">' .
+            '<a href="'. route('inventory.show', $inventory) .'" class="btn btn-info">View</a>' . 
+            '</div>';
+        }
     }
 
     /**
@@ -58,13 +82,40 @@ class InventoryController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate([
+            'name' => 'required',
+            'category' => 'required',
+            ]);
+
+
+        // $validator = Validator::make($request->all(), [
+        //    'name' => 'required',
+        //    'model' => 'required',
+        //    'category_id' => 'required',
+        //    ]);
+
+        // if($validator->fails()){
+        //     $request->session()->flash('warning', 'Please fill in the required text field. (Name, Model, Category');
+
+        //     return redirect()->route('inventory.create')->withErrors($validator);
+        // }
+        // else{
         $inventory = new Inventory();
         $inventory->fill($request->all());
 
-        // $inventory->photo = $request->file('photo')->storeAs('/', $inventory->name.'.jpg');
+        $this->storePhoto($request, $inventory);
+
         $inventory->save();
+
+        $request->session()->flash('success', 'New inventory added successfully!');
         return redirect()->route('inventory.index');
+        // }
+
     }
+
+
+    
 
     /**
      * Display the specified resource.
@@ -78,6 +129,8 @@ class InventoryController extends Controller
 
         return view('inventory.show', [
             'inventory' => $inventory,
+            'locations' => $inventory->locations,
+            'transactions' => $inventory->transactions,
             ]);
     }
 
@@ -89,7 +142,9 @@ class InventoryController extends Controller
      */
     public function edit(Inventory $inventory)
     {
-        //
+        return view('inventory.edit', [
+            'inventory' => $inventory,
+            ]);
     }
 
     /**
@@ -101,17 +156,50 @@ class InventoryController extends Controller
      */
     public function update(Request $request, Inventory $inventory)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'category' => 'required',
+            ]);
+
+        $inventory->fill($request->all());
+
+        $this->storePhoto($request, $inventory);
+
+        $inventory->save();
+
+        $request->session()->flash('success', 'Item updated successfully!');
+        return redirect()->route('inventory.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Inventory  $inventory
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Inventory $inventory)
+    public function storePhoto(Request $request, Inventory $inventory)
     {
-        //
+        if($request->photo)
+        {
+            $request->validate([
+                'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                ]);
+            $inventory->photo = $inventory->name .'.jpg';
+            try {
+                $image_resize = Image::make($request->file('photo'));
+                $image_resize->orientate();
+
+                $image_resize->resize(null, 300, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+
+                $image_resize->save(public_path('storage/inventories/' .$inventory->photo));
+            }
+            catch (Exception $e) {
+                $request->session()->flash('warning', 'Error during upload photo to server.');
+                return redirect()->route('inventory.index');
+            }
+        }
+    }
+
+    public function delete(Inventory $inventory)
+    {
+        $inventory->delete();
+        Session::flash('success', 'Item deleted successfully!');
+        return redirect()->route('inventory.index');
     }
 }

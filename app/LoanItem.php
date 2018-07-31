@@ -8,8 +8,11 @@ class LoanItem extends Model
 {
 	protected $fillable = [
 	'inventory_id',
-	'quantity',
+	'requested_quantity',
+	'approved_quantity',
+	'remark',
 	'loan_id',
+	'is_returned',
 	];
 
 	public function loan()
