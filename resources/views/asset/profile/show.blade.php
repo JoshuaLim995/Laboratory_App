@@ -36,4 +36,12 @@
 		<th>Supervisor</th>
 		<td>{{ $user->getSupervisor() }}</td>
 	</tr>
+	<tr>
+		<th>Work Bench</th>
+		<td>{{ $user->work_bench }}</td>
+	</tr>
+	<tr>
+		<th>Office</th>
+		<td>{{ $user->office }}</td>
+	</tr>
 </table>

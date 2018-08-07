@@ -1,5 +1,6 @@
 
 @auth
+@if(Auth::user()->isApproved())
 @if(Auth::user()->isStaff())
 {{-- <li class="nav-item dropdown">
 	<a href="#" data-toggle="dropdown" class="dropdown-toggle nav-link">Here <b class="caret"></b></a>
@@ -29,9 +30,15 @@
 <li><a class="nav-link" href="{{ route('locker.index') }}">Locker</a></li>
 
 @elseif(Auth::user()->isStudent())
-<li><a class="nav-link" href="{{ route('loan.index') }}">Loan</a></li>
-{{-- <li><a class="nav-link" href="{{ route('reservation.index') }}">My Reservation</a></li> --}}
+{{-- <li><a class="nav-link" href="{{ route('loan.index') }}">Loan</a></li> --}}
 
+<li class="nav-item dropdown">
+	<a href="#" data-toggle="dropdown" class="dropdown-toggle nav-link">Loan<b class="caret"></b></a>
+	<ul class="dropdown-menu" id="menu1">
+		<li><a class="dropdown-item" href="{{ route('loan.create') }}">Make loan</a></li>
+		<li><a class="dropdown-item" href="{{ route('loan.index') }}">All loan</a></li>
+	</ul>
+</li>
 
 <li class="nav-item dropdown">
 	<a href="#" data-toggle="dropdown" class="dropdown-toggle nav-link">Reservation<b class="caret"></b></a>
@@ -41,18 +48,9 @@
 	</ul>
 </li>
 
-
-
-
-
-
-
-
-
-
-
 <li><a class="nav-link" href="{{ route('reservation.showCalendar') }}">Calender</a></li>
 <li><a class="nav-link" href="{{ route('rentLocker.index') }}">Rent Locker</a></li>
 
+@endif
 @endif
 @endauth

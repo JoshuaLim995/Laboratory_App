@@ -78,3 +78,5 @@ Route::get('/location/{location}/delete', 'ItemLocationController@delete')->name
 
 Route::get('/getItemLocations', 'DataTableController@getItemLocations')->name('getItemLocations');
 Route::get('/getInventoryTransaction', 'DataTableController@getInventoryTransaction')->name('getInventoryTransaction');
+
+Route::get('/reg_approve/{user}', 'UserController@registrationApproval')->name('newRegistrationApproval');

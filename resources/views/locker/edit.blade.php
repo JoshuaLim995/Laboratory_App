@@ -6,7 +6,7 @@ use App\Locker;
 @section('content')
 <div class="container">
 	<h1>Edit Locker</h1>
-
+<hr>
 	{!! Form::model($locker, [
 	'route' => ['locker.update', $locker],
 	'class' => 'form-horizontal',

@@ -4,24 +4,18 @@
 
 <div class="container">
 
-	@if(Auth::user()->isUser())
+	@if(Auth::user()->isApproved())
 	@if(Auth::user()->isStudent())
-	@include('student_home')
-	@else
-	<div class="card mb-4">
-		<div class="card-header">Welcome</div>
-		<div class="card-body">
-			Welcome to Laboratory Management System
-		</div>
-	</div>
+	@include('home.student')
+	@elseif(Auth::user()->isdlmsa())
+	@include('home.admin')
+	@elseif(Auth::user()->isAdmin())
+	@include('home.admin')
+	@elseif(Auth::user()->isStaff())
+	@include('home.staff')
 	@endif
 	@else
-	<div class="card mb-4">
-		<div class="card-header">Welcome</div>
-		<div class="card-body">
-			Please wait for the varification from admin
-		</div>
-	</div>
+	@include('home.new_user')
 	@endif
 	
 </div>

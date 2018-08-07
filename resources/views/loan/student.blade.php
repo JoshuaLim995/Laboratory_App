@@ -1,11 +1,10 @@
 <div class="container">
-	<div class="control-group input-group">
-		{{-- <a href="{{ route('loan.create') }}"><button class="btn btn-default">Create loan</button></a> --}}
+{{-- 	<div class="control-group input-group">
 		<button id='hideshow' class="btn btn">Make loan</button>
-	</div>
+	</div> --}}
 
 	<div id="tab" class="panel panel-primary">
-	<h1>My Loan</h1>
+	<h1>My Loan Request</h1>
 
 		<table id="loan-table" class="table">
 			<thead>
@@ -20,9 +19,9 @@
 		</table>
 	</div>
 
-	<div id="create" class="panel panel-primary"  style="display: none;">
+{{-- 	<div id="create" class="panel panel-primary"  style="display: none;">
 		@include('loan.create')
-	</div>
+	</div> --}}
 
 </div>
 
@@ -53,7 +52,7 @@
 	} );
 </script>
 
-<script type="text/javascript">
+{{-- <script type="text/javascript">
 	$(document).ready(function(){
 
 		$('#hideshow').on('click', function(event) {
@@ -66,4 +65,4 @@
 			});
 		});
 	});
-</script>
+</script> --}}

@@ -7,10 +7,8 @@ use App\MyCalendar;
 	<div class="panel panel-default">
 		<div class="panel-body">
 			<div class="form-group mb-4">
-				<div class="form-group">
-					<h1>Lab Equipment reservation Request</h1>
-				</div>
-
+					<h1>Laboratory Reservation</h1>
+<hr>
 				<div class="form-group row">
 					<label class="control-label col-sm-2">Name</label>
 					<div class="col-sm-10">

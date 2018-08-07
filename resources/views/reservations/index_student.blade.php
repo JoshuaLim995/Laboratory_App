@@ -1,7 +1,8 @@
 
 {{-- <button id='hideshow' class="btn btn">Make reservation</button> --}}
 <div id="cal" class="panel panel-primary">
-	<h1>My Reservation</h1>
+	<h1>My Reservations</h1>
+	<hr>
 	<table id="reservation-table" class="table">
 		<thead>
 			<tr>
@@ -14,24 +15,6 @@
 		</thead>
 	</table>
 </div>
-
-{{-- <div id="create" class="panel panel-primary"  style="display: none;">
-	@include('reservations.create')
-</div>
-
-<script type="text/javascript">
-	$(document).ready(function(){
-
-		$('#hideshow').on('click', function(event) {
-			$('#cal').toggle('show');
-			$('#create').toggle('show');
-			
-			$(this).text(function(i, text){
-				return text === "Show reservation" ? "Make reservation" : "Show reservation";
-			});
-		});
-	});
-</script> --}}
 
 <script type="text/javascript">
 	$(document).ready(function() {

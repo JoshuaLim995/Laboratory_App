@@ -8,6 +8,7 @@ use Bouncer;
 use App\User;
 use Auth;
 use Illuminate\Http\Request;
+use Snowfire\Beautymail\Beautymail;
 
 class UserController extends Controller
 {
@@ -167,4 +168,23 @@ class UserController extends Controller
         }
     }
 
+    public function registrationApproval(User $user)
+    {
+        $user->update(['approved' => '1']);
+
+        $beautymail = app()->make(Beautymail::class);
+        $beautymail->send('emails.registration', [
+            'user' => $user
+            ], function($message) use ($user)
+            {
+                $email = $user->email;
+
+                $message
+                ->from(env('EMAIL_ADDR'))
+                ->to($email)
+                ->subject('Registration Approved');
+            });
+
+        return redirect()->home();
+    }
 }

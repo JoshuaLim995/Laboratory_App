@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('work_bench')->nullable();
             $table->string('office')->nullable();
             $table->string('contact');
+            $table->string('approved', 1);
             $table->rememberToken();
             $table->timestamps();
         });
@@ -37,6 +38,7 @@ class CreateUsersTable extends Migration
             'username' => 'dlmsa',
             'department' => 'Science',
             'contact' => '0119488293',
+            'approved' => '1',
             ],
             [
             'name' => 'Admin',
@@ -45,6 +47,7 @@ class CreateUsersTable extends Migration
             'username' => 'admin',
             'department' => 'Lab',
             'contact' => '0119494949',
+            'approved' => '1',
             ],
             [
             'name' => 'Student',
@@ -53,6 +56,7 @@ class CreateUsersTable extends Migration
             'username' => 'student',
             'department' => 'FES',
             'contact' => '01148590532',
+            'approved' => '1',
             ],
             [
             'name' => 'Dummy',
@@ -61,6 +65,7 @@ class CreateUsersTable extends Migration
             'username' => 'dummy',
             'department' => 'Dummy',
             'contact' => '01148590532',
+            'approved' => '1',
             ],
             [
             'name' => 'Assistant',
@@ -69,6 +74,7 @@ class CreateUsersTable extends Migration
             'username' => 'assistant',
             'department' => 'Assistant',
             'contact' => '01148590532',
+            'approved' => '1',
             ],
             [
             'name' => 'Academic Staff',
@@ -77,6 +83,7 @@ class CreateUsersTable extends Migration
             'username' => 'acd',
             'department' => 'fda',
             'contact' => '01148590532',
+            'approved' => '1',
             ],
             ]);
     }

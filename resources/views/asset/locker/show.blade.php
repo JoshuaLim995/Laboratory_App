@@ -2,6 +2,8 @@
 use App\Locker;
 ?>
 <div class="panel-body">
+<h1>Locker Information</h1>
+<hr>
 	<div class="form-group row">
 		{!! Form::label('type' ,'Locker Type', [
 		'class' => 'control-label col-sm-2'
@@ -11,7 +13,7 @@ use App\Locker;
 				{!! Form::radio('type', 'A', $locker->type=="A" ? 'checked' : '', [
 				]) !!}
 				{!! Form::label('locker' ,'Normal Locker', [
-				'class' => 'control-label'
+				'class' => 'control-label',
 				]) !!}
 			</div>
 			<div class="col-sm-4">

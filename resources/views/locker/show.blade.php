@@ -4,43 +4,16 @@
 
 	@include('asset.locker.show')
 
-	@if($rentLocker)
-	<div class="form-group row">
-		{!! Form::label('userName' ,'Occupant', [
-		'class' => 'control-label col-sm-2'
-		]) !!}
-		<div class="col-sm-9">
-			{!! Form::text('userName', $rentLocker->user->name, [
-			'class' => 'form-control',
-			'disabled'
-			]) !!}
-		</div>
-	</div>
+	@include('asset.locker.rentLocker')
 
-	<div class="form-group row">
-		{!! Form::label('date_to' ,'From', [
-		'class' => 'control-label col-sm-2'
-		]) !!}
-		<div class="col-sm-9">
-			{!! Form::text('date_to', $rentLocker->date_from, [
-			'class' => 'form-control',
-			'disabled'
-			]) !!}
+		<div class="form-group">
+		<a href="{{ route('locker.index') }}"><button class="btn btn-secondary">Return</button></a>
+		@if(Auth::user()->isAdmin())
+		<div class="pull-right">
+			<a href="{{ route('locker.edit', $locker->id) }}"><button class="btn btn-success">Edit Locker</button></a>	
+			<a href="{{ route('locker.delete', $locker) }}"><button class="btn btn-danger" onclick="if(!confirm('Are you sure delete this record?')){return false;};">Delete Locker</button></a>
 		</div>
+		@endif
 	</div>
-
-	<div class="form-group row">
-		{!! Form::label('date_to' ,'To', [
-		'class' => 'control-label col-sm-2'
-		]) !!}
-		<div class="col-sm-9">
-			{!! Form::text('date_to', $rentLocker->date_to, [
-			'class' => 'form-control',
-			'disabled'
-			]) !!}
-		</div>
-	</div>
-	@endif
 </div>
-
 @endsection

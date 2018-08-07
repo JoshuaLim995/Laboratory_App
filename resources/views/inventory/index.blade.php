@@ -3,11 +3,12 @@
 
 
 <div class="container">
-
-	<div class="control-group row">
+	<div class="row">
 		<h1 class="col-sm-3">Inventory</h1>
+		@if(Auth::user()->isAdmin())
 		<a href="{{ route('inventory.create') }}"><button class="btn btn-default">Add Inventory
 		</button></a>
+		@endif
 	</div>
 
 	<div class="control-group">

@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-    'name', 'email', 'password', 'username', 'department', 'programme', 'supervisor', 'contact', 'work_bench', 'office'
+    'name', 'email', 'password', 'username', 'department', 'programme', 'supervisor', 'contact', 'work_bench', 'office', 'approved'
     // 'name', 'email', 'password', 'username', 'department', 'contact',
     ];
 
@@ -90,6 +90,14 @@ class User extends Authenticatable
     public function isAdmin()
     {
         if($this->isA('dlmsa', 'admin'))
+            return true;
+        else
+            return false;
+    }
+
+    public function isApproved()
+    {
+        if($this->approved === '1')
             return true;
         else
             return false;

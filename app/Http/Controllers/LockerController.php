@@ -15,11 +15,13 @@ use Session;
 
 class LockerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('staff');
+        $this->middleware('admin', ['only' => ['create', 'store', 'edit', 'update', 'delete']]);
+    }
+    
     public function index()
     {
         return view('locker.index');

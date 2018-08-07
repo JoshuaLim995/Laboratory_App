@@ -55,7 +55,7 @@ class RegisterController extends Controller
             'username' => 'required|string|max:255|unique:users',
             'department' => 'required|string|max:255',
             'contact' => 'required|numeric|regex:/(01)[0-9]{8,9}/',
-            // 'type' => 'required',
+            'type' => 'required',
         ]);
     }
 
@@ -78,6 +78,7 @@ class RegisterController extends Controller
             'contact' => $data['contact'],
             'work_bench' => $data['work_bench'],
             'office' => $data['office'],
+            'approved' => '0',
         ]);
     }
 }

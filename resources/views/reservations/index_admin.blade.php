@@ -2,7 +2,8 @@
 @section('content')
 <div class="container">
 
-	
+	<h1>Laboratory Reservation List</h1>
+
 	<table id="reservation-table" class="table">
 		<thead>
 			<tr>

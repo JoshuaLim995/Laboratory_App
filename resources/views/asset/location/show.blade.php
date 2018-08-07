@@ -1,5 +1,13 @@
-<div class="form-group">
-	<label class="control-label">Locations</label>
+<div>
+	<div class="control-group row">
+		<h3 class="col-sm-3">Locations</h3>
+		@if(Auth::user()->isAdmin())
+		<div class="pull-right">
+			<a href="{{ route('location.create', ['inventory' => $inventory->id]) }}"><button class="btn btn-primary">Add Location</button></a>	
+		</div>
+		@endif
+	</div>
+	
 	<table id="item_location" class="table">
 		<thead>
 			<tr>
@@ -11,11 +19,4 @@
 			</tr>
 		</thead>
 	</table>
-	<div class="form-group">
-		@if(Auth::user()->isAdmin())
-		<div class="pull-right">
-			<a href="{{ route('location.create', ['inventory' => $inventory->id]) }}"><button class="btn btn-primary">Add Location</button></a>	
-		</div>
-		@endif
-	</div>
 </div>
