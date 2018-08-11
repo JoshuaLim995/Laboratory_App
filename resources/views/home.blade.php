@@ -7,8 +7,6 @@
 	@if(Auth::user()->isApproved())
 	@if(Auth::user()->isStudent())
 	@include('home.student')
-	@elseif(Auth::user()->isdlmsa())
-	@include('home.admin')
 	@elseif(Auth::user()->isAdmin())
 	@include('home.admin')
 	@elseif(Auth::user()->isStaff())

@@ -1,3 +1,8 @@
+<style type="text/css">
+	.uniqueClassName {
+		/*text-align: center;*/
+	}
+</style>
 <div class="container">
 	<div class="control-group row">
 		<h1 class="col-sm-3">Loans</h1>
@@ -6,8 +11,9 @@
 		<thead>
 			<tr>
 				<th></th>
-				<th>Name</th>
-				<th>Program</th>
+				<th>Loan ID</th>
+				<th>Student Name</th>
+				{{-- <th>Program</th> --}}
 				<th>From</th>
 				<th>Due Date</th>
 				<th>Status</th>
@@ -23,11 +29,12 @@
 			ajax: '{{ route('loan.get_datatable') }}',
 			columns : [
 			{data: null},
+			{data: 'id', name: 'id', className: "uniqueClassName"},
 			{data: 'user_name', name: 'user_name'},
-			{data: 'department', name: 'department'},
+			// {data: 'department', name: 'department'},
 			{data: 'date_from', name: 'date_from'},
 			{data: 'date_to', name: 'date_to'},
-			{data: 'status', name: 'status', searchable: false},	
+			{data: 'status', name: 'status'},	
 			{data: 'action', name: 'action', orderable: false, searchable: false}
 			],
 			"columnDefs": [ {

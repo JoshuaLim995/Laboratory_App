@@ -14,7 +14,7 @@ use Carbon\Carbon;
     <div class="container">
         <h1>Reminder of Loan Overdue</h1>
         <p>Dear {{ $loan->user->name }},</p>
-        <p>Please be reminded that your loan: {{ $loan->id }} has overdue at {{ Carbon::parse($loan->date_to)->format('D, M d, Y') }} </p>
+        <p>Please be reminded that your loan: <a href="{{ env('APP_URL') . '/loan/' }}">{{ $loan->id }}</a> has overdue at {{ Carbon::parse($loan->date_to)->format('D, M d, Y') }} </p>
         <p>Please return the items stated below as soon as possible to avoid complications.</p>
         <p>The loan of items</p>
 

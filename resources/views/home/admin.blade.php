@@ -35,4 +35,12 @@
 		</table>
 	</div>
 </div>
+@else
+<div class="card mb-4">
+	<div class="card-header">New User Registration Approval</div>
+	<div class="card-body">
+		No new registeration
+	</div>
+</div>
 @endif
+

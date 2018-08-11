@@ -108,35 +108,8 @@ class ReservationController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'purpose' => 'required',
-            'room_no' => 'required',
-            'starts_at' => 'required',
-            'ends_at' => 'required',
-            ]);
+        $this->validation($request, $starts_at, $ends_at);
 
-        if($validator->fails())
-        {
-            $request->session()->flash('warning', 'Please fill in the required information');
-            return redirect()->route('reservation.create')->withErrors($validator);
-        }
-
-        $starts_at = Carbon::parse($request->date . ' ' . $request->starts_at);
-        $ends_at = Carbon::parse($request->date . ' ' . $request->ends_at);
-
-        if($ends_at < $starts_at)
-        {
-            $request->session()->flash('warning', 'Please select valid time');
-            return redirect()->route('reservation.create');
-        }
-
-        if(Reservation::checkClash($starts_at, $request->room_no))
-        {
-            $request->session()->flash('warning', 'Please choose another available timeslot');
-            // $request->session()->flash('error', 'Please choose another available timeslot');
-            return redirect()->route('reservation.create');
-        }
-        
         $reservation = new Reservation();
         $reservation->purpose = $request->purpose;
         $reservation->room_no = $request->room_no;
@@ -171,7 +144,16 @@ class ReservationController extends Controller
      */
     public function edit(Reservation $reservation)
     {
-        //
+        $date = MyCalendar::date($reservation->starts_at);
+        $starts_at = MyCalendar::time($reservation->starts_at);
+        $ends_at = MyCalendar::time($reservation->ends_at);
+
+        return view('reservations.edit', [
+            'reservation' => $reservation,
+            'date' => $date,
+            'starts_at' => $starts_at,
+            'ends_at' => $ends_at,
+            ]);
     }
 
     /**
@@ -183,7 +165,18 @@ class ReservationController extends Controller
      */
     public function update(Request $request, Reservation $reservation)
     {
-        //
+        $this->validation($request, $starts_at, $ends_at);
+
+        $reservation->purpose = $request->purpose;
+        $reservation->room_no = $request->room_no;
+        $reservation->starts_at = $starts_at;
+        $reservation->ends_at = $ends_at;
+        $reservation->user_id = Auth::id();
+
+
+        $reservation->save();
+        $request->session()->flash('success', 'Reservation successfully updated');
+        return redirect()->route('reservation.index');
     }
 
     /**
@@ -195,5 +188,44 @@ class ReservationController extends Controller
     public function destroy(Reservation $reservation)
     {
         //
+    }
+
+    public function validation(Request $request, &$starts_at, &$ends_at)
+    {
+        $validator = Validator::make($request->all(), [
+            'purpose' => 'required',
+            'room_no' => 'required',
+            'starts_at' => 'required',
+            'ends_at' => 'required',
+            ]);
+
+        if($validator->fails())
+        {
+            $request->session()->flash('warning', 'Please fill in the required information');
+            return redirect()->route('reservation.create')->withErrors($validator);
+        }
+
+        $starts_at = Carbon::parse($request->date . ' ' . $request->starts_at);
+        $ends_at = Carbon::parse($request->date . ' ' . $request->ends_at);
+
+        if($ends_at < $starts_at)
+        {
+            $request->session()->flash('warning', 'Please select valid time');
+            return redirect()->route('reservation.create');
+        }
+
+        if(Reservation::checkClash($starts_at, $request->room_no))
+        {
+            $request->session()->flash('warning', 'Please choose another available timeslot');
+            // $request->session()->flash('error', 'Please choose another available timeslot');
+            return redirect()->route('reservation.create');
+        }
+    }
+
+    public function delete(Reservation $reservation)
+    {
+        $reservation->delete();
+        Session::flash('success', 'Item deleted successfully!');
+        return redirect()->route('reservation.index');
     }
 }

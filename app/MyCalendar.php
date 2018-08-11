@@ -12,6 +12,11 @@ class MyCalendar extends Model
 		return Carbon::parse($time)->format('h:i A ');
 	}
 
+	public static function date($date)
+	{
+		return Carbon::parse($date)->format('m/d/Y');
+	}
+
 	public static function dayDate($date)
 	{
 		return Carbon::parse($date)->format('l, F d, Y');

@@ -3,6 +3,18 @@ use App\Inventory;
 ?>
 
 <div class="form-group row">
+	{!! Form::label('name', 'Name', [
+	'class' => 'control-label col-sm-2'
+	]) !!}
+	<div class="col-sm-9">
+		{!! Form::text('name', null, [
+		'class' => 'form-control',
+		'required',
+		]) !!}
+	</div>
+</div>
+
+<div class="form-group row">
 	{!! Form::label('category', 'Category', [
 	'class' => 'control-label col-sm-2'
 	]) !!}
@@ -11,18 +23,6 @@ use App\Inventory;
 		'class' => 'form-control select2',
 		'placeholder' => 'Select Category',
 		'multiple' => false,
-		'required',
-		]) !!}
-	</div>
-</div>
-
-<div class="form-group row">
-	{!! Form::label('name', 'Name', [
-	'class' => 'control-label col-sm-2'
-	]) !!}
-	<div class="col-sm-9">
-		{!! Form::text('name', null, [
-		'class' => 'form-control',
 		'required',
 		]) !!}
 	</div>

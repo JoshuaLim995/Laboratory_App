@@ -32,6 +32,13 @@ use App\MyCalendar;
 							</div>
 
 							<div class="form-group row">
+								<label class="control-label col-sm-2">Loan ID</label>
+								<div class="col-sm-10">
+									<input type="text" name="loan_no" class="form-control" disabled value="{{ $loan->id }}">
+								</div>
+							</div>
+
+							<div class="form-group row">
 								<label class="control-label col-sm-2">Student Name</label>
 								<div class="col-sm-10">
 									<input type="text" name="loan_no" class="form-control" disabled value="{{ $loan->user->name }}">
@@ -125,7 +132,6 @@ use App\MyCalendar;
 													@if($loan->compareStatus('1'))
 														{!! Form::text('remarks[]', $loan_item->remark, [
 														'class' => 'form-control',
-														'required',
 														]) !!}
 														@else
 														{{ $loan_item->remark }}

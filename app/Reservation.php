@@ -17,6 +17,10 @@ class Reservation extends Model
     public static $room_no = [
     '613' => 'KB613',
     '614' => 'KB614',
+    '615' => 'KB615',
+    '713' => 'KB713',
+    '714' => 'KB714',
+    '715' => 'KB715',
     ];
 
     public function user()

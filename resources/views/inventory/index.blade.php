@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('content')
 
-
 <div class="container">
 	<div class="row">
 		<h1 class="col-sm-3">Inventory</h1>
@@ -19,7 +18,6 @@
 					<th>Name</th>
 					<th>Category</th>
 					<th>Action</th>
-
 				</tr>
 			</thead>
 		</table>
@@ -41,8 +39,29 @@
 				"orderable": false,
 				"targets": 0
 			} ],
-			"order": [[ 1, 'asc' ]]
-		} );
+			"order": [[ 1, 'asc' ]],
+			dom: 'Bfrtip',
+			buttons: [
+			{
+				extend: 'copyHtml5',
+					// text: '<i class="fa fa-file-copy-o"></i> CSV',
+					// titleAttr: 'Copy',
+					title: 'Inventory List',
+					exportOptions: {
+						columns: [ 0, 1, 2]
+					}
+				},
+				{
+					extend: 'csvHtml5',
+					text: '<i class="fa fa-file-text-o"></i> CSV',
+					titleAttr: 'CSV',
+					title: 'Inventory List',
+					exportOptions: {
+						columns: [ 0, 1, 2]
+					}
+				},
+				]
+			} );
 
 		t.on( 'order.dt search.dt', function () {
 			t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
@@ -54,3 +73,4 @@
 
 
 @endsection
+

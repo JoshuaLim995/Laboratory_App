@@ -281,6 +281,9 @@ class LoanController extends Controller
         $loan->updateStatus(2);
         $loan->update(['message' => $request->message]);
 
+        //Send Email
+        
+
         return redirect()->route('loan.show', $loan->id);
     }
 

@@ -9,11 +9,6 @@ use App\User;
 
 class HomeController extends Controller
 {
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $user = Auth::user();
@@ -47,4 +42,42 @@ class HomeController extends Controller
                 ]);
         }
     }
+
+
+
+
+    // public function index()
+    // {
+    //     $arr = [];
+    //     $r = ['g', 'g'];
+
+    //     $arr;
+    //     // return $arr;
+
+    //     $l = 1;
+    //     while ($l <= 40) 
+    //     {
+    //         for($f = 5; $f < 9; $f++)
+    //         {
+    //             $filled_int = sprintf("%03d", $l);
+    //             $l++;
+    //             if($l % 2 === 0)
+    //                 $t = 'A';
+    //             else
+    //                 $t = 'B';
+
+    //             echo "
+    //             [
+    //             'locker_no' => '". $filled_int ."',
+    //             'floor_no' => '". $f . "',
+    //             'type' => '". $t ."',
+    //             'availablity' => '1',
+    //             ],
+    //             ";
+
+    //             echo "<br>";
+    //         }            
+    //         echo "<br>";
+    //     }
+    // }
 }

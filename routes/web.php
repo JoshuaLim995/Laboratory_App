@@ -46,6 +46,7 @@ Route::get('/user/{user}/delete', 'UserController@delete')->name('user.delete');
 Route::get('/category/{category}/delete', 'CategoryController@delete')->name('category.delete');
 Route::get('/inventory/{inventory}/delete', 'InventoryController@delete')->name('inventory.delete');
 Route::get('/locker/{locker}/delete', 'LockerController@delete')->name('locker.delete');
+Route::get('/reservation/{reservation}/delete', 'ReservationController@delete')->name('reservation.delete');
 
 
 Route::get('/loan/{loan}/cancel', 'LoanController@cancel')->name('loan.cancel');

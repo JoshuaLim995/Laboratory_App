@@ -43,7 +43,27 @@
 				"orderable": false,
 				"targets": 0
 			} ],
-			"order": [[ 1, 'asc' ]]
+			"order": [[ 1, 'asc' ]],
+			dom: 'Bfrtip',
+			buttons: [
+			{
+				extend: 'copyHtml5',
+				title: 'User List',
+				exportOptions: {
+					columns: [ 1, 2, 3, 4]
+				}
+			},
+			{
+				extend: 'csvHtml5',
+				text: '<i class="fa fa-file-text-o"></i> CSV',
+				titleAttr: 'CSV',
+				title: 'User List',
+				exportOptions: {
+					columns: [ 1, 2, 3, 4]
+				}
+			},
+			 // 'colvis'
+			]
 		} );
 
 		t.on( 'order.dt search.dt', function () {

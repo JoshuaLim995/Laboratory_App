@@ -109,7 +109,7 @@ class InventoryController extends Controller
         $inventory->save();
 
         $request->session()->flash('success', 'New inventory added successfully!');
-        return redirect()->route('inventory.index');
+        return redirect()->route('inventory.create');
         // }
 
     }

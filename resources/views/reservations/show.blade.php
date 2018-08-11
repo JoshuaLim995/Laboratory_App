@@ -7,8 +7,8 @@ use App\MyCalendar;
 	<div class="panel panel-default">
 		<div class="panel-body">
 			<div class="form-group mb-4">
-					<h1>Laboratory Reservation</h1>
-<hr>
+				<h1>Laboratory Reservation</h1>
+				<hr>
 				<div class="form-group row">
 					<label class="control-label col-sm-2">Name</label>
 					<div class="col-sm-10">
@@ -46,12 +46,14 @@ use App\MyCalendar;
 				</div>
 			</div>
 
-
-
-			<div class="form-horizontal">
-				{!! Html::linkRoute('reservation.index', 'Return', null, 
-				array('class'=>'btn btn-secondary'))!!}
-
+			<div class="form-group">
+				<a href="{{ route('reservation.index') }}"><button class="btn btn-secondary">Return</button></a>
+				@if(Auth::user()->isAdmin())
+				<div class="pull-right">
+					<a href="{{ route('reservation.edit', $reservation->id) }}"><button class="btn btn-success">Edit</button></a>	
+					<a href="{{ route('reservation.delete', $reservation) }}"><button class="btn btn-danger" onclick="if(!confirm('Are you sure delete this record?')){return false;};">Delete</button></a>
+				</div>
+				@endif
 			</div>
 		</div>
 	</div>
